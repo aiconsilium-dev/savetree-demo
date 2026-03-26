@@ -1059,6 +1059,79 @@
     border-radius: 6px; border: 1px solid rgba(255,255,255,.1); z-index: 3;
   }
   #pcCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+/* ═══ 다방식 디테일 패널 ═══ */
+.map-wrap { position: relative; display: flex; width: 100%; height: 100%; overflow: hidden; }
+.map-area { flex: 1; transition: all 0.28s cubic-bezier(.4,0,.2,1); position: relative; }
+.map-wrap.panel-open .map-area { /* 지도가 왼쪽으로 축소 */ }
+
+.side-panel {
+  width: 360px; min-width: 360px;
+  background: var(--bg-pure);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(.4,0,.2,1);
+  position: absolute; right: 0; top: 0; bottom: 0;
+  z-index: 20;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.08);
+}
+.side-panel.open { transform: translateX(0); }
+
+.sp-hd { padding: 14px 16px 12px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; justify-content: space-between; background: var(--bg-pure); flex-shrink: 0; }
+.sp-hd-title { font-size: 16px; font-weight: 900; color: var(--text); letter-spacing: -0.3px; margin-bottom: 3px; }
+.sp-hd-sub { font-size: 12px; color: var(--text3); }
+.sp-close { width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--border); background: transparent; color: var(--text3); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .12s; }
+.sp-close:hover { background: var(--surface2); color: var(--text); }
+.sp-close svg { width: 14px; height: 14px; }
+
+.sp-photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 12px 12px 0; flex-shrink: 0; }
+.sp-photo { aspect-ratio: 1; border-radius: 6px; overflow: hidden; background: var(--surface2); cursor: pointer; position: relative; }
+.sp-photo:first-child { grid-column: span 3; aspect-ratio: 16/8; }
+.sp-photo img { width: 100%; height: 100%; object-fit: cover; }
+.sp-photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text3); font-size: 10.5px; font-weight: 600; background: linear-gradient(135deg, var(--green-50), var(--surface2)); }
+.sp-photo-placeholder svg { width: 20px; height: 20px; opacity: 0.5; }
+.sp-photo-date { position: absolute; bottom: 4px; right: 4px; background: rgba(0,0,0,0.55); color: #fff; font-size: 9px; padding: 2px 5px; border-radius: 3px; }
+
+.sp-grade-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px; flex-shrink: 0; }
+.sp-grade-badge { padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 800; }
+.sp-grade-badge.A { background: var(--green-100); color: var(--green-700); }
+.sp-grade-badge.B { background: #f0fdf4; color: #15803d; }
+.sp-grade-badge.C { background: var(--warn-l); color: var(--warn); }
+.sp-grade-badge.D { background: var(--err-l); color: var(--err); }
+.sp-sensor { font-size: 11.5px; font-weight: 700; margin-left: auto; }
+
+.sp-body { flex: 1; overflow-y: auto; padding: 0 14px 80px; }
+
+.sp-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text3); margin: 16px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+
+.sp-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+.sp-info-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.sp-info-val { font-size: 17px; font-weight: 900; color: var(--text); letter-spacing: -0.3px; margin-bottom: 2px; }
+.sp-info-key { font-size: 10.5px; color: var(--text3); font-weight: 600; }
+
+.sp-attr-list {}
+.sp-attr-row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.sp-attr-row:last-child { border-bottom: none; }
+.sp-attr-key { color: var(--text3); }
+.sp-attr-val { font-weight: 700; color: var(--text); }
+
+.sp-sensor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sp-sensor-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; }
+.sp-sensor-item.alert { border-color: rgba(220,38,38,.3); background: #fff5f5; }
+.sp-sensor-item.warn  { border-color: rgba(217,119,6,.3);  background: #fffbf0; }
+.sp-sensor-val { font-size: 15px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
+.sp-sensor-val.err  { color: var(--err); }
+.sp-sensor-val.warn { color: var(--warn); }
+.sp-sensor-key { font-size: 10.5px; color: var(--text3); font-weight: 600; }
+
+.sp-actions { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 14px; background: var(--bg-pure); border-top: 1px solid var(--border); display: flex; gap: 8px; }
+.sp-btn { flex: 1; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: 700; font-family: var(--font); cursor: pointer; border: none; transition: all .12s; }
+.sp-btn.primary { background: var(--green-700); color: #fff; }
+.sp-btn.primary:hover { background: var(--green-600); }
+.sp-btn.secondary { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+.sp-btn.secondary:hover { border-color: var(--border-g); }
   </style>
 </head>
 <body>
@@ -1229,7 +1302,7 @@
 
     <!-- ══ 화면 1: 트리맵 ══ -->
     <div class="screen" id="screen1">
-      <div class="map-wrap">
+      <div class="map-wrap" id="mapWrap">
         <div class="map-controls">
           <div>
             <div class="ctrl-h">수목 검색</div>
@@ -1341,6 +1414,91 @@
             <div class="mz-sep"></div>
             <button class="mz-btn" onclick="mapZoom(0.833)" title="축소">−</button>
             <button class="mz-btn" onclick="mapZoomReset()" title="초기화" style="font-size:10px;font-weight:700;">↺</button>
+          </div>
+        </div>
+
+        <!-- ══ 다방식 디테일 패널 ══ -->
+        <div class="side-panel" id="sidePanel">
+          <!-- 헤더 -->
+          <div class="sp-hd">
+            <div class="sp-hd-info">
+              <div class="sp-hd-title" id="spTitle">왕벚나무 #T-047</div>
+              <div class="sp-hd-sub" id="spSub">헬리오시티 · 중앙 조경 공원 서측</div>
+            </div>
+            <button class="sp-close" onclick="closeSidePanel()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <!-- 현황 사진 -->
+          <div class="sp-photos" id="spPhotos">
+            <div class="sp-photo">
+              <div class="sp-photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                현황 사진 1
+              </div>
+              <span class="sp-photo-date">2025.11</span>
+            </div>
+            <div class="sp-photo">
+              <div class="sp-photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                수피
+              </div>
+            </div>
+            <div class="sp-photo">
+              <div class="sp-photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                수관
+              </div>
+            </div>
+            <div class="sp-photo">
+              <div class="sp-photo-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                근부
+              </div>
+            </div>
+          </div>
+
+          <!-- 건강 등급 배지 -->
+          <div class="sp-grade-row">
+            <span class="sp-grade-badge D" id="spGrade">D — 위험</span>
+            <span class="sp-sensor err" id="spSensorBadge">⚠ 수분 임계</span>
+          </div>
+
+          <!-- 본문 (스크롤) -->
+          <div class="sp-body">
+            <div class="sp-section-title">기본 정보</div>
+            <div class="sp-info-grid">
+              <div class="sp-info-item"><div class="sp-info-val" id="spHeight">8.2m</div><div class="sp-info-key">수고</div></div>
+              <div class="sp-info-item"><div class="sp-info-val" id="spDBH">22cm</div><div class="sp-info-key">흉고직경 (DBH)</div></div>
+              <div class="sp-info-item"><div class="sp-info-val" id="spAge">약 23년</div><div class="sp-info-key">수령</div></div>
+              <div class="sp-info-item"><div class="sp-info-val" id="spCrown">6.4m</div><div class="sp-info-key">수관폭</div></div>
+            </div>
+
+            <div class="sp-section-title">상세 속성</div>
+            <div class="sp-attr-list">
+              <div class="sp-attr-row"><span class="sp-attr-key">위치</span><span class="sp-attr-val" id="spLocation">중앙 조경 공원 서측</span></div>
+              <div class="sp-attr-row"><span class="sp-attr-key">수종</span><span class="sp-attr-val" id="spSpecies">왕벚나무 (Prunus×yedoensis)</span></div>
+              <div class="sp-attr-row"><span class="sp-attr-key">수목 번호</span><span class="sp-attr-val" id="spId">T-047</span></div>
+              <div class="sp-attr-row"><span class="sp-attr-key">최근 점검일</span><span class="sp-attr-val" id="spLastCheck">2025.11.14</span></div>
+              <div class="sp-attr-row"><span class="sp-attr-key">점검 주기</span><span class="sp-attr-val">분기 1회</span></div>
+              <div class="sp-attr-row"><span class="sp-attr-key">Greehill STI</span><span class="sp-attr-val" id="spSTI">–</span></div>
+            </div>
+
+            <div class="sp-section-title">센서 현황</div>
+            <div class="sp-sensor-grid">
+              <div class="sp-sensor-item alert" id="spS1"><div class="sp-sensor-val err" id="spS1v">23%</div><div class="sp-sensor-key">토양 수분</div></div>
+              <div class="sp-sensor-item" id="spS2"><div class="sp-sensor-val" id="spS2v">7.2</div><div class="sp-sensor-key">토양 pH</div></div>
+              <div class="sp-sensor-item" id="spS3"><div class="sp-sensor-val" id="spS3v">–</div><div class="sp-sensor-key">생체전기 (EI)</div></div>
+              <div class="sp-sensor-item" id="spS4"><div class="sp-sensor-val" id="spS4v">–</div><div class="sp-sensor-key">EC (전기전도도)</div></div>
+            </div>
+          </div>
+
+          <!-- 하단 액션 -->
+          <div class="sp-actions">
+            <button class="sp-btn secondary" onclick="nav(3)">3D 보기</button>
+            <button class="sp-btn secondary" onclick="nav(2)">전체 상세</button>
+            <button class="sp-btn primary" onclick="openInspectModal(currentTree.sp, currentTree.id)">점검 등록</button>
           </div>
         </div>
       </div>
@@ -2050,21 +2208,22 @@ function nav(n) {
 
 /* ── 마커 ── */
 const TREES = [
-  {id:'T-047',sp:'왕벚나무',g:'D',h:'8.2m',dbh:'22cm',sens:'⚠ 수분 임계',x:67,y:52},
-  {id:'T-089',sp:'소나무',  g:'A',h:'6.8m',dbh:'18cm',sens:'정상',        x:72,y:62},
-  {id:'T-112',sp:'느티나무',g:'D',h:'11.4m',dbh:'35cm',sens:'⚠ 생체전기',x:78,y:43},
-  {id:'T-023',sp:'은행나무',g:'B',h:'9.1m',dbh:'28cm',sens:'정상',        x:20,y:30},
-  {id:'T-054',sp:'왕벚나무',g:'A',h:'7.3m',dbh:'20cm',sens:'정상',        x:35,y:28},
-  {id:'T-078',sp:'느티나무',g:'C',h:'10.2m',dbh:'31cm',sens:'EC 경고',    x:50,y:32},
-  {id:'T-134',sp:'소나무',  g:'A',h:'5.9m',dbh:'15cm',sens:'정상',        x:26,y:55},
-  {id:'T-156',sp:'왕벚나무',g:'B',h:'8.4m',dbh:'24cm',sens:'정상',        x:40,y:58},
-  {id:'T-178',sp:'은행나무',g:'A',h:'10.1m',dbh:'30cm',sens:'정상',       x:55,y:62},
-  {id:'T-192',sp:'소나무',  g:'B',h:'6.2m',dbh:'16cm',sens:'정상',        x:84,y:68},
-  {id:'T-203',sp:'은행나무',g:'C',h:'9.7m',dbh:'29cm',sens:'EC 경고',     x:90,y:55},
-  {id:'T-215',sp:'느티나무',g:'A',h:'12.0m',dbh:'38cm',sens:'정상',       x:25,y:75},
-  {id:'T-229',sp:'왕벚나무',g:'A',h:'7.8m',dbh:'22cm',sens:'정상',        x:50,y:78},
-  {id:'T-241',sp:'소나무',  g:'B',h:'5.5m',dbh:'14cm',sens:'정상',        x:65,y:82},
+  {id:'T-047',sp:'왕벚나무',g:'D',h:'8.2m',dbh:'22cm',crown:'6.4m',age:'약 23년',loc:'중앙 조경 공원 서측',sens:'⚠ 수분 임계',sti:'54',x:67,y:52},
+  {id:'T-089',sp:'소나무',  g:'A',h:'6.8m',dbh:'18cm',crown:'4.2m',age:'약 31년',loc:'단지 북측 경계',    sens:'정상',         sti:'82',x:72,y:62},
+  {id:'T-112',sp:'느티나무',g:'D',h:'11.4m',dbh:'35cm',crown:'9.1m',age:'약 40년',loc:'놀이터 서측',     sens:'⚠ 생체전기',   sti:'41',x:78,y:43},
+  {id:'T-023',sp:'은행나무',g:'B',h:'9.1m',dbh:'28cm',crown:'7.3m',age:'약 28년',loc:'주차장 진입로',    sens:'정상',         sti:'76',x:20,y:30},
+  {id:'T-054',sp:'왕벚나무',g:'A',h:'7.3m',dbh:'20cm',crown:'5.8m',age:'약 20년',loc:'101동 앞',        sens:'정상',         sti:'91',x:35,y:28},
+  {id:'T-078',sp:'느티나무',g:'C',h:'10.2m',dbh:'31cm',crown:'8.5m',age:'약 35년',loc:'연못 옆',         sens:'EC 경고',      sti:'63',x:50,y:32},
+  {id:'T-134',sp:'소나무',  g:'A',h:'5.9m',dbh:'15cm',crown:'3.8m',age:'약 18년',loc:'단지 입구',        sens:'정상',         sti:'88',x:26,y:55},
+  {id:'T-156',sp:'왕벚나무',g:'B',h:'8.4m',dbh:'24cm',crown:'6.9m',age:'약 22년',loc:'산책로 중간',      sens:'정상',         sti:'79',x:40,y:58},
+  {id:'T-178',sp:'은행나무',g:'A',h:'10.1m',dbh:'30cm',crown:'8.2m',age:'약 32년',loc:'202동 앞',       sens:'정상',         sti:'85',x:55,y:62},
+  {id:'T-192',sp:'소나무',  g:'B',h:'6.2m',dbh:'16cm',crown:'4.0m',age:'약 19년',loc:'단지 동측',        sens:'정상',         sti:'74',x:84,y:68},
+  {id:'T-203',sp:'은행나무',g:'C',h:'9.7m',dbh:'29cm',crown:'7.8m',age:'약 27년',loc:'분리수거장 옆',    sens:'EC 경고',      sti:'62',x:90,y:55},
+  {id:'T-215',sp:'느티나무',g:'A',h:'12.0m',dbh:'38cm',crown:'10.2m',age:'약 45년',loc:'공원 중앙',     sens:'정상',         sti:'90',x:25,y:75},
+  {id:'T-229',sp:'왕벚나무',g:'A',h:'7.8m',dbh:'22cm',crown:'6.2m',age:'약 21년',loc:'벤치 옆',         sens:'정상',         sti:'87',x:50,y:78},
+  {id:'T-241',sp:'소나무',  g:'B',h:'5.5m',dbh:'14cm',crown:'3.5m',age:'약 16년',loc:'단지 남측',        sens:'정상',         sti:'77',x:65,y:82},
 ];
+let currentTree = null;
 
 let mInit = false;
 function initMarkers() {
@@ -2096,28 +2255,70 @@ function initMarkers() {
 }
 
 function showPopup(el, t) {
-  const popup = document.getElementById('treePopup');
+  openSidePanel(el, t);
+}
+
+function openSidePanel(el, t) {
+  currentTree = t;
   document.querySelectorAll('.tree-marker').forEach(m => m.classList.remove('sel'));
   el.classList.add('sel');
-  const area = el.parentElement.parentElement;
-  const ar = area.getBoundingClientRect(), er = el.getBoundingClientRect();
-  let px = er.left - ar.left + 24, py = er.top - ar.top - 10;
-  if (px + 215 > ar.width)  px -= 235;
-  if (py + 210 > ar.height) py -= 210;
-  popup.style.left = px + 'px'; popup.style.top = py + 'px';
-  document.getElementById('popupTitle').textContent = t.sp + ' #' + t.id;
-  document.getElementById('popupH').textContent     = t.h;
-  document.getElementById('popupDBH').textContent   = t.dbh;
-  const si = document.getElementById('popupSensor');
-  si.textContent = t.sens; si.style.color = t.sens.includes('⚠') ? 'var(--err)' : 'var(--green-600)';
-  const ge = document.getElementById('popupGrade');
-  ge.className = 'hg ' + t.g;
-  ge.textContent = {A:'A — 우수', B:'B — 양호', C:'C — 주의', D:'D — 위험'}[t.g];
-  popup.classList.add('vis');
+
+  document.getElementById('spTitle').textContent = t.sp + ' #' + t.id;
+  document.getElementById('spSub').textContent   = '헬리오시티 · ' + (t.loc || '위치 미지정');
+  document.getElementById('spId').textContent    = t.id;
+  document.getElementById('spSpecies').textContent = {
+    '왕벚나무':'왕벚나무 (Prunus×yedoensis)',
+    '소나무':'소나무 (Pinus densiflora)',
+    '느티나무':'느티나무 (Zelkova serrata)',
+    '은행나무':'은행나무 (Ginkgo biloba)'
+  }[t.sp] || t.sp;
+  document.getElementById('spHeight').textContent  = t.h;
+  document.getElementById('spDBH').textContent     = t.dbh;
+  document.getElementById('spCrown').textContent   = t.crown || '–';
+  document.getElementById('spAge').textContent     = t.age || '–';
+  document.getElementById('spLocation').textContent = t.loc || '–';
+  document.getElementById('spSTI').textContent     = t.sti ? t.sti + ' / 100' : '–';
+
+  const gradeEl = document.getElementById('spGrade');
+  gradeEl.className = 'sp-grade-badge ' + t.g;
+  gradeEl.textContent = {A:'A — 우수',B:'B — 양호',C:'C — 주의',D:'D — 위험'}[t.g];
+
+  const sensorBadge = document.getElementById('spSensorBadge');
+  const isAlert = t.sens && t.sens.includes('⚠');
+  const isWarn  = t.sens && (t.sens.includes('경고') || t.sens.includes('EC'));
+  sensorBadge.textContent = t.sens || '정상';
+  sensorBadge.className = 'sp-sensor ' + (isAlert ? 'err' : isWarn ? 'warn' : 'ok');
+  sensorBadge.style.color = isAlert ? 'var(--err)' : isWarn ? 'var(--warn)' : 'var(--green-600)';
+
+  const moisture = isAlert ? Math.floor(Math.random()*15+15) : Math.floor(Math.random()*25+45);
+  document.getElementById('spS1v').textContent = moisture + '%';
+  document.getElementById('spS1').className = 'sp-sensor-item' + (moisture < 30 ? ' alert' : '');
+  document.getElementById('spS1v').className = 'sp-sensor-val' + (moisture < 30 ? ' err' : '');
+
+  const ec = isWarn ? (Math.random()*0.5+1.8).toFixed(2) : (Math.random()*0.4+0.6).toFixed(2);
+  document.getElementById('spS4v').textContent = ec + ' dS/m';
+  document.getElementById('spS4').className = 'sp-sensor-item' + (parseFloat(ec) > 1.5 ? ' warn' : '');
+
+  const ei = t.sens.includes('생체전기') ? (Math.random()*20+20).toFixed(1) : (Math.random()*30+60).toFixed(1);
+  document.getElementById('spS3v').textContent = ei;
+  document.getElementById('spS3').className = 'sp-sensor-item' + (parseFloat(ei) < 40 ? ' alert' : '');
+
+  document.getElementById('spS2v').textContent = (Math.random()*1.5+6.2).toFixed(1);
+
+  document.getElementById('sidePanel').classList.add('open');
+  document.getElementById('treePopup').classList.remove('vis');
 }
+
+function closeSidePanel() {
+  document.getElementById('sidePanel').classList.remove('open');
+  document.querySelectorAll('.tree-marker').forEach(m => m.classList.remove('sel'));
+  currentTree = null;
+}
+
 function closePopup() {
   document.getElementById('treePopup').classList.remove('vis');
   document.querySelectorAll('.tree-marker').forEach(m => m.classList.remove('sel'));
+  closeSidePanel();
 }
 
 /* ── 수목 목록 ── */
