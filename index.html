@@ -1279,6 +1279,253 @@
   padding: 2px 6px;
   border-radius: 3px;
 }
+
+/* ═══ 상단 필터바 ═══ */
+.filter-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-pure);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  flex-shrink: 0;
+  -webkit-overflow-scrolling: touch;
+}
+.filter-topbar::-webkit-scrollbar { display: none; }
+
+.ftb-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  background: var(--bg-pure);
+  border: 1.5px solid var(--border);
+  color: var(--text2);
+  font-family: var(--font);
+  transition: all .12s;
+  user-select: none;
+}
+.ftb-chip:hover { border-color: var(--border-g); color: var(--text); }
+.ftb-chip.active { background: var(--green-700); color: #fff; border-color: var(--green-700); }
+.ftb-chip svg { width: 12px; height: 12px; }
+.ftb-chip .chip-arrow { opacity: 0.5; font-size: 10px; margin-left: 1px; }
+
+.ftb-sep { width: 1px; height: 20px; background: var(--border); flex-shrink: 0; }
+
+/* 드롭다운 메뉴 */
+.ftb-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: var(--bg-pure);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  min-width: 140px;
+  z-index: 200;
+  overflow: hidden;
+  display: none;
+}
+.ftb-dropdown.open { display: block; }
+.ftb-dd-item {
+  padding: 9px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: background .1s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ftb-dd-item:hover { background: var(--green-50); }
+.ftb-dd-item.sel { color: var(--green-700); font-weight: 700; }
+.ftb-dd-item .dd-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.ftb-chip-wrap { position: relative; }
+
+/* 지도 영역을 flex 컬럼으로 재구성 */
+.map-area-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ═══ 패널 탭 슬라이드 ═══ */
+.sp-tab-bar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 12px;
+  background: var(--bg-pure);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  flex-shrink: 0;
+  -webkit-overflow-scrolling: touch;
+}
+.sp-tab-bar::-webkit-scrollbar { display: none; }
+
+.sp-tab {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  color: var(--text3);
+  font-family: var(--font);
+  transition: all .12s;
+}
+.sp-tab:hover { border-color: var(--border-g); color: var(--text2); }
+.sp-tab.active {
+  background: var(--green-700);
+  color: #fff;
+  border-color: var(--green-700);
+}
+
+/* 슬라이드 컨테이너 */
+.sp-slides-wrap {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.sp-slides {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+.sp-slide {
+  min-width: 100%;
+  overflow-y: auto;
+  padding: 0 0 80px;
+}
+
+/* 사진 슬라이더 */
+.sp-photo-hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--surface2);
+  overflow: hidden;
+}
+.sp-photo-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.sp-photo-hero-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text3);
+  background: linear-gradient(135deg, var(--green-50), var(--surface2));
+}
+.sp-photo-hero-placeholder svg { width: 32px; height: 32px; opacity: 0.35; }
+.sp-photo-hero-placeholder span { font-size: 12px; font-weight: 600; }
+
+.sp-photo-thumbs {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+.sp-photo-thumbs::-webkit-scrollbar { display: none; }
+.sp-thumb {
+  width: 52px;
+  height: 40px;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--text3);
+  font-weight: 600;
+  transition: border-color .12s;
+}
+.sp-thumb.active { border-color: var(--green-600); }
+.sp-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+/* 사진 도트 */
+.sp-photo-dots {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+.sp-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all .15s;
+}
+.sp-dot.active { background: #fff; width: 16px; border-radius: 3px; }
+
+/* 카테고리 내용 */
+.sp-cat-section { padding: 14px 14px 6px; }
+.sp-cat-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border);
+}
+.sp-kv-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.sp-kv-row:last-child { border-bottom: none; }
+.sp-kv-key { color: var(--text3); }
+.sp-kv-val { font-weight: 700; color: var(--text); }
+.sp-kv-val.good { color: var(--green-600); }
+.sp-kv-val.warn { color: var(--warn); }
+.sp-kv-val.err  { color: var(--err); }
+
+.sp-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 14px;
+}
+.sp-stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.sp-stat-val { font-size: 18px; font-weight: 900; color: var(--text); letter-spacing: -0.3px; }
+.sp-stat-key { font-size: 10.5px; color: var(--text3); font-weight: 600; margin-top: 2px; }
+.sp-stat-card.alert-card { border-color: rgba(220,38,38,.25); background: #fff5f5; }
+.sp-stat-card.warn-card  { border-color: rgba(217,119,6,.25); background: #fffbf0; }
+
   </style>
 </head>
 <body>
@@ -1476,7 +1723,56 @@
         </div>
 
         <!-- 지도 -->
-        <div class="map-area">
+        <div class="map-area-wrap">
+          <!-- 상단 필터바 -->
+          <div class="filter-topbar">
+            <div class="ftb-chip-wrap">
+              <button class="ftb-chip active" id="ftbGrade" onclick="toggleFtbDD('ddGrade')">
+                건강 등급 <span class="chip-arrow">▾</span>
+              </button>
+              <div class="ftb-dropdown" id="ddGrade">
+                <div class="ftb-dd-item sel" onclick="setGradeFilter('all','ddGrade','ftbGrade','전체 등급')"><span class="dd-dot" style="background:#94a3b8"></span>전체</div>
+                <div class="ftb-dd-item" onclick="setGradeFilter('A','ddGrade','ftbGrade','A — 우수')"><span class="dd-dot" style="background:var(--green-500)"></span>A — 우수</div>
+                <div class="ftb-dd-item" onclick="setGradeFilter('B','ddGrade','ftbGrade','B — 양호')"><span class="dd-dot" style="background:#84cc16"></span>B — 양호</div>
+                <div class="ftb-dd-item" onclick="setGradeFilter('C','ddGrade','ftbGrade','C — 주의')"><span class="dd-dot" style="background:var(--warn)"></span>C — 주의</div>
+                <div class="ftb-dd-item" onclick="setGradeFilter('D','ddGrade','ftbGrade','D — 위험')"><span class="dd-dot" style="background:var(--err)"></span>D — 위험</div>
+              </div>
+            </div>
+
+            <div class="ftb-chip-wrap">
+              <button class="ftb-chip" id="ftbSpecies" onclick="toggleFtbDD('ddSpecies')">
+                수종 <span class="chip-arrow">▾</span>
+              </button>
+              <div class="ftb-dropdown" id="ddSpecies">
+                <div class="ftb-dd-item sel" onclick="setSpeciesFilter('all','ddSpecies','ftbSpecies','수종')">전체</div>
+                <div class="ftb-dd-item" onclick="setSpeciesFilter('왕벚나무','ddSpecies','ftbSpecies','왕벚나무')">왕벚나무</div>
+                <div class="ftb-dd-item" onclick="setSpeciesFilter('느티나무','ddSpecies','ftbSpecies','느티나무')">느티나무</div>
+                <div class="ftb-dd-item" onclick="setSpeciesFilter('은행나무','ddSpecies','ftbSpecies','은행나무')">은행나무</div>
+                <div class="ftb-dd-item" onclick="setSpeciesFilter('소나무','ddSpecies','ftbSpecies','소나무')">소나무</div>
+              </div>
+            </div>
+
+            <div class="ftb-chip-wrap">
+              <button class="ftb-chip" id="ftbSensor" onclick="toggleFtbDD('ddSensor')">
+                센서 상태 <span class="chip-arrow">▾</span>
+              </button>
+              <div class="ftb-dropdown" id="ddSensor">
+                <div class="ftb-dd-item sel" onclick="setSensorFilter('all','ddSensor','ftbSensor','센서 상태')">전체</div>
+                <div class="ftb-dd-item" onclick="setSensorFilter('alert','ddSensor','ftbSensor','⚠ 경보')">⚠ 경보</div>
+                <div class="ftb-dd-item" onclick="setSensorFilter('normal','ddSensor','ftbSensor','정상')">정상</div>
+              </div>
+            </div>
+
+            <div class="ftb-sep"></div>
+
+            <button class="ftb-chip" onclick="resetFtbFilters()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>
+              초기화
+            </button>
+          </div>
+
+          <!-- 기존 지도 -->
+          <div class="map-area">
           <svg class="map-bg" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice">
             <defs>
               <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
@@ -1555,9 +1851,11 @@
             <button class="mz-btn" onclick="mapZoomReset()" title="초기화" style="font-size:10px;font-weight:700;">↺</button>
           </div>
         </div>
+        </div><!-- /map-area-wrap -->
 
-        <!-- ══ 다방식 디테일 패널 ══ -->
+        <!-- ══ 다방식 디테일 패널 (탭 슬라이드) ══ -->
         <div class="side-panel" id="sidePanel">
+
           <!-- 헤더 -->
           <div class="sp-hd">
             <div class="sp-hd-info">
@@ -1569,75 +1867,173 @@
             </button>
           </div>
 
-          <!-- 현황 사진 -->
-          <div class="sp-photos" id="spPhotos">
-            <div class="sp-photo">
-              <div class="sp-photo-placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                현황 사진 1
-              </div>
-              <span class="sp-photo-date">2025.11</span>
-            </div>
-            <div class="sp-photo">
-              <div class="sp-photo-placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                수피
-              </div>
-            </div>
-            <div class="sp-photo">
-              <div class="sp-photo-placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                수관
-              </div>
-            </div>
-            <div class="sp-photo">
-              <div class="sp-photo-placeholder">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-                근부
-              </div>
-            </div>
+          <!-- 탭 바 (다방의 가격정보/상세정보/옵션 스타일) -->
+          <div class="sp-tab-bar">
+            <button class="sp-tab active" onclick="switchTab(0)" id="spTab0">기초</button>
+            <button class="sp-tab" onclick="switchTab(1)" id="spTab1">규격</button>
+            <button class="sp-tab" onclick="switchTab(2)" id="spTab2">위험성</button>
+            <button class="sp-tab" onclick="switchTab(3)" id="spTab3">생태계서비스</button>
+            <button class="sp-tab" onclick="switchTab(4)" id="spTab4">간섭정보</button>
           </div>
 
-          <!-- 건강 등급 배지 -->
-          <div class="sp-grade-row">
-            <span class="sp-grade-badge D" id="spGrade">D — 위험</span>
-            <span class="sp-sensor err" id="spSensorBadge">⚠ 수분 임계</span>
-          </div>
+          <!-- 슬라이드 컨테이너 -->
+          <div class="sp-slides-wrap">
+            <div class="sp-slides" id="spSlides">
 
-          <!-- 본문 (스크롤) -->
-          <div class="sp-body">
-            <div class="sp-section-title">기본 정보</div>
-            <div class="sp-info-grid">
-              <div class="sp-info-item"><div class="sp-info-val" id="spHeight">8.2m</div><div class="sp-info-key">수고</div></div>
-              <div class="sp-info-item"><div class="sp-info-val" id="spDBH">22cm</div><div class="sp-info-key">흉고직경 (DBH)</div></div>
-              <div class="sp-info-item"><div class="sp-info-val" id="spAge">약 23년</div><div class="sp-info-key">수령</div></div>
-              <div class="sp-info-item"><div class="sp-info-val" id="spCrown">6.4m</div><div class="sp-info-key">수관폭</div></div>
-            </div>
+              <!-- ── 탭 0: 기초 ── -->
+              <div class="sp-slide" id="spSlide0">
+                <!-- 현황 사진 히어로 -->
+                <div class="sp-photo-hero" id="spPhotoHero">
+                  <div class="sp-photo-hero-placeholder">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                      <rect x="3" y="3" width="18" height="18" rx="2"/>
+                      <circle cx="8.5" cy="8.5" r="1.5"/>
+                      <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    <span>현황 사진</span>
+                  </div>
+                  <div class="sp-photo-dots" id="spPhotoDots">
+                    <div class="sp-dot active" onclick="photoGo(0)"></div>
+                    <div class="sp-dot" onclick="photoGo(1)"></div>
+                    <div class="sp-dot" onclick="photoGo(2)"></div>
+                    <div class="sp-dot" onclick="photoGo(3)"></div>
+                  </div>
+                </div>
 
-            <div class="sp-section-title">상세 속성</div>
-            <div class="sp-attr-list">
-              <div class="sp-attr-row"><span class="sp-attr-key">위치</span><span class="sp-attr-val" id="spLocation">중앙 조경 공원 서측</span></div>
-              <div class="sp-attr-row"><span class="sp-attr-key">수종</span><span class="sp-attr-val" id="spSpecies">왕벚나무 (Prunus×yedoensis)</span></div>
-              <div class="sp-attr-row"><span class="sp-attr-key">수목 번호</span><span class="sp-attr-val" id="spId">T-047</span></div>
-              <div class="sp-attr-row"><span class="sp-attr-key">최근 점검일</span><span class="sp-attr-val" id="spLastCheck">2025.11.14</span></div>
-              <div class="sp-attr-row"><span class="sp-attr-key">점검 주기</span><span class="sp-attr-val">분기 1회</span></div>
-              <div class="sp-attr-row"><span class="sp-attr-key">Greehill STI</span><span class="sp-attr-val" id="spSTI">–</span></div>
-            </div>
+                <!-- 썸네일 바 -->
+                <div class="sp-photo-thumbs">
+                  <div class="sp-thumb active" onclick="photoGo(0)">전경</div>
+                  <div class="sp-thumb" onclick="photoGo(1)">수피</div>
+                  <div class="sp-thumb" onclick="photoGo(2)">수관</div>
+                  <div class="sp-thumb" onclick="photoGo(3)">근부</div>
+                </div>
 
-            <div class="sp-section-title">센서 현황</div>
-            <div class="sp-sensor-grid">
-              <div class="sp-sensor-item alert" id="spS1"><div class="sp-sensor-val err" id="spS1v">23%</div><div class="sp-sensor-key">토양 수분</div></div>
-              <div class="sp-sensor-item" id="spS2"><div class="sp-sensor-val" id="spS2v">7.2</div><div class="sp-sensor-key">토양 pH</div></div>
-              <div class="sp-sensor-item" id="spS3"><div class="sp-sensor-val" id="spS3v">–</div><div class="sp-sensor-key">생체전기 (EI)</div></div>
-              <div class="sp-sensor-item" id="spS4"><div class="sp-sensor-val" id="spS4v">–</div><div class="sp-sensor-key">EC (전기전도도)</div></div>
-            </div>
-          </div>
+                <!-- 건강 등급 + 센서 -->
+                <div class="sp-grade-row">
+                  <span class="sp-grade-badge D" id="spGrade">D — 위험</span>
+                  <span class="sp-sensor err" id="spSensorBadge">⚠ 수분 임계</span>
+                  <span style="margin-left:auto;font-size:11px;color:var(--text3);" id="spLastCheckBadge">점검 2025.11</span>
+                </div>
+
+                <!-- 기초 정보 -->
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">기초 정보</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수목 번호</span><span class="sp-kv-val" id="spId">T-047</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수종</span><span class="sp-kv-val" id="spSpecies">왕벚나무 (Prunus×yedoensis)</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">위치</span><span class="sp-kv-val" id="spLocation">중앙 조경 공원 서측</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수령</span><span class="sp-kv-val" id="spAge">약 23년</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">최근 점검일</span><span class="sp-kv-val" id="spLastCheck">2025.11.14</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">Greehill STI</span><span class="sp-kv-val" id="spSTI">54 / 100</span></div>
+                </div>
+              </div>
+
+              <!-- ── 탭 1: 규격 ── -->
+              <div class="sp-slide" id="spSlide1">
+                <div class="sp-stat-grid">
+                  <div class="sp-stat-card">
+                    <div class="sp-stat-val" id="spHeight2">8.2m</div>
+                    <div class="sp-stat-key">수고 (Tree Height)</div>
+                  </div>
+                  <div class="sp-stat-card">
+                    <div class="sp-stat-val" id="spDBH2">22cm</div>
+                    <div class="sp-stat-key">흉고직경 (DBH)</div>
+                  </div>
+                  <div class="sp-stat-card">
+                    <div class="sp-stat-val" id="spCrown2">6.4m</div>
+                    <div class="sp-stat-key">수관폭 (Crown Width)</div>
+                  </div>
+                  <div class="sp-stat-card">
+                    <div class="sp-stat-val" id="spAge2">23년</div>
+                    <div class="sp-stat-key">수령 (Age)</div>
+                  </div>
+                </div>
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">규격 상세</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수관 형태</span><span class="sp-kv-val">원개형</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">근원직경</span><span class="sp-kv-val">28cm</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">지하고</span><span class="sp-kv-val">2.1m</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수목 중량 (추정)</span><span class="sp-kv-val">약 420kg</span></div>
+                </div>
+              </div>
+
+              <!-- ── 탭 2: 위험성 ── -->
+              <div class="sp-slide" id="spSlide2">
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">위험성 평가</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">종합 위험 등급</span><span class="sp-kv-val err" id="spRisk">High</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">구조적 결함</span><span class="sp-kv-val warn">경미한 공동 관찰</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">가지 파손 위험</span><span class="sp-kv-val warn">중간</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">경사 방향</span><span class="sp-kv-val">북동 15°</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수목 활력도</span><span class="sp-kv-val err" id="spSTIRisk">낮음 (STI 54)</span></div>
+                </div>
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">센서 현황</div>
+                  <div class="sp-stat-grid" style="padding:0;">
+                    <div class="sp-stat-card alert-card" id="spS1">
+                      <div class="sp-stat-val err" id="spS1v">23%</div>
+                      <div class="sp-stat-key">토양 수분</div>
+                    </div>
+                    <div class="sp-stat-card" id="spS2">
+                      <div class="sp-stat-val" id="spS2v">7.2</div>
+                      <div class="sp-stat-key">토양 pH</div>
+                    </div>
+                    <div class="sp-stat-card" id="spS3">
+                      <div class="sp-stat-val" id="spS3v">–</div>
+                      <div class="sp-stat-key">생체전기 (EI)</div>
+                    </div>
+                    <div class="sp-stat-card" id="spS4">
+                      <div class="sp-stat-val" id="spS4v">–</div>
+                      <div class="sp-stat-key">EC (전기전도도)</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ── 탭 3: 생태계서비스 ── -->
+              <div class="sp-slide" id="spSlide3">
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">생태계서비스 가치</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">탄소 저장량</span><span class="sp-kv-val good">약 68kg CO₂</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">연간 탄소 흡수</span><span class="sp-kv-val good">약 4.2kg/년</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">우수 유출 억제</span><span class="sp-kv-val">연 1,840L</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">대기 오염 저감</span><span class="sp-kv-val">연 0.08kg</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">그늘 면적</span><span class="sp-kv-val">32m²</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">경제적 가치 (i-Tree)</span><span class="sp-kv-val good">연 $142</span></div>
+                </div>
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">생물 다양성</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">조류 서식 관찰</span><span class="sp-kv-val">3종 확인</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">수분 매개곤충</span><span class="sp-kv-val">개화 시 활성</span></div>
+                </div>
+              </div>
+
+              <!-- ── 탭 4: 간섭정보 ── -->
+              <div class="sp-slide" id="spSlide4">
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">주변 시설 간섭</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">지하 매설물</span><span class="sp-kv-val warn">상수도관 1.2m 이내</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">포장재 이격거리</span><span class="sp-kv-val">0.8m</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">건물 이격거리</span><span class="sp-kv-val">4.2m (101동)</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">전선 간섭</span><span class="sp-kv-val good">없음</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">보행로 침범</span><span class="sp-kv-val good">없음</span></div>
+                </div>
+                <div class="sp-cat-section">
+                  <div class="sp-cat-title">관리 이력</div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">마지막 전정</span><span class="sp-kv-val">2024.04</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">마지막 시비</span><span class="sp-kv-val">2024.09</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">병해충 방제</span><span class="sp-kv-val">2024.05</span></div>
+                  <div class="sp-kv-row"><span class="sp-kv-key">다음 점검 예정</span><span class="sp-kv-val">2026.02</span></div>
+                </div>
+              </div>
+
+            </div><!-- /.sp-slides -->
+          </div><!-- /.sp-slides-wrap -->
 
           <!-- 하단 액션 -->
           <div class="sp-actions">
             <button class="sp-btn secondary" onclick="nav(3)">3D 보기</button>
             <button class="sp-btn secondary" onclick="nav(2)">전체 상세</button>
-            <button class="sp-btn primary" onclick="openInspectModal(currentTree.sp, currentTree.id)">점검 등록</button>
+            <button class="sp-btn primary" onclick="currentTree && openInspectModal(currentTree.sp, currentTree.id)">점검 등록</button>
           </div>
         </div>
       </div>
@@ -2402,6 +2798,11 @@ function openSidePanel(el, t) {
   document.querySelectorAll('.tree-marker').forEach(m => m.classList.remove('sel'));
   el.classList.add('sel');
 
+  // 탭 초기화 (기초 탭으로)
+  switchTab(0);
+  currentPhoto = 0;
+  photoGo(0);
+
   document.getElementById('spTitle').textContent = t.sp + ' #' + t.id;
   document.getElementById('spSub').textContent   = '헬리오시티 · ' + (t.loc || '위치 미지정');
   document.getElementById('spId').textContent    = t.id;
@@ -2411,12 +2812,17 @@ function openSidePanel(el, t) {
     '느티나무':'느티나무 (Zelkova serrata)',
     '은행나무':'은행나무 (Ginkgo biloba)'
   }[t.sp] || t.sp;
-  document.getElementById('spHeight').textContent  = t.h;
-  document.getElementById('spDBH').textContent     = t.dbh;
-  document.getElementById('spCrown').textContent   = t.crown || '–';
   document.getElementById('spAge').textContent     = t.age || '–';
   document.getElementById('spLocation').textContent = t.loc || '–';
   document.getElementById('spSTI').textContent     = t.sti ? t.sti + ' / 100' : '–';
+  document.getElementById('spLastCheck').textContent = '2025.11.14';
+  document.getElementById('spLastCheckBadge').textContent = '점검 2025.11';
+
+  // 규격 탭
+  document.getElementById('spHeight2').textContent = t.h;
+  document.getElementById('spDBH2').textContent    = t.dbh;
+  document.getElementById('spCrown2').textContent  = t.crown || '–';
+  document.getElementById('spAge2').textContent    = (t.age || '–').replace('약 ', '');
 
   const gradeEl = document.getElementById('spGrade');
   gradeEl.className = 'sp-grade-badge ' + t.g;
@@ -2429,18 +2835,38 @@ function openSidePanel(el, t) {
   sensorBadge.className = 'sp-sensor ' + (isAlert ? 'err' : isWarn ? 'warn' : 'ok');
   sensorBadge.style.color = isAlert ? 'var(--err)' : isWarn ? 'var(--warn)' : 'var(--green-600)';
 
+  // 위험성 탭
+  const riskLevel = t.g === 'D' ? 'High' : t.g === 'C' ? 'Medium' : 'Low';
+  const riskEl = document.getElementById('spRisk');
+  if (riskEl) {
+    riskEl.textContent = riskLevel;
+    riskEl.className = 'sp-kv-val ' + (t.g === 'D' ? 'err' : t.g === 'C' ? 'warn' : 'good');
+  }
+  const stiRisk = document.getElementById('spSTIRisk');
+  if (stiRisk) {
+    const stiVal = t.sti || '–';
+    const stiNum = parseInt(stiVal);
+    stiRisk.textContent = stiNum < 60 ? `낮음 (STI ${stiVal})` : stiNum < 75 ? `보통 (STI ${stiVal})` : `양호 (STI ${stiVal})`;
+    stiRisk.className = 'sp-kv-val ' + (stiNum < 60 ? 'err' : stiNum < 75 ? 'warn' : 'good');
+  }
+
+  // 센서 데이터
   const moisture = isAlert ? Math.floor(Math.random()*15+15) : Math.floor(Math.random()*25+45);
   document.getElementById('spS1v').textContent = moisture + '%';
-  document.getElementById('spS1').className = 'sp-sensor-item' + (moisture < 30 ? ' alert' : '');
-  document.getElementById('spS1v').className = 'sp-sensor-val' + (moisture < 30 ? ' err' : '');
+  const s1 = document.getElementById('spS1');
+  if (s1) s1.className = 'sp-stat-card' + (moisture < 30 ? ' alert-card' : '');
+  const s1v = document.getElementById('spS1v');
+  if (s1v) s1v.className = 'sp-stat-val' + (moisture < 30 ? ' err' : '');
 
   const ec = isWarn ? (Math.random()*0.5+1.8).toFixed(2) : (Math.random()*0.4+0.6).toFixed(2);
   document.getElementById('spS4v').textContent = ec + ' dS/m';
-  document.getElementById('spS4').className = 'sp-sensor-item' + (parseFloat(ec) > 1.5 ? ' warn' : '');
+  const s4 = document.getElementById('spS4');
+  if (s4) s4.className = 'sp-stat-card' + (parseFloat(ec) > 1.5 ? ' warn-card' : '');
 
   const ei = t.sens.includes('생체전기') ? (Math.random()*20+20).toFixed(1) : (Math.random()*30+60).toFixed(1);
   document.getElementById('spS3v').textContent = ei;
-  document.getElementById('spS3').className = 'sp-sensor-item' + (parseFloat(ei) < 40 ? ' alert' : '');
+  const s3 = document.getElementById('spS3');
+  if (s3) s3.className = 'sp-stat-card' + (parseFloat(ei) < 40 ? ' alert-card' : '');
 
   document.getElementById('spS2v').textContent = (Math.random()*1.5+6.2).toFixed(1);
 
@@ -3127,6 +3553,129 @@ function mapSearch(q) {
     ? TREES.filter(t => t.sp.includes(q) || t.id.toLowerCase().includes(q.toLowerCase()))
     : TREES;
   renderTreeCards(filtered);
+}
+
+/* ═══ 패널 탭 전환 ═══ */
+let currentTab = 0;
+let currentPhoto = 0;
+
+function switchTab(idx) {
+  currentTab = idx;
+  // 탭 버튼 스타일
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('spTab' + i);
+    if (el) el.classList.toggle('active', i === idx);
+  }
+  // 슬라이드 이동
+  const slides = document.getElementById('spSlides');
+  if (slides) slides.style.transform = `translateX(-${idx * 100}%)`;
+}
+
+function photoGo(idx) {
+  currentPhoto = idx;
+  // 도트 업데이트
+  document.querySelectorAll('#spPhotoDots .sp-dot').forEach((d, i) => {
+    d.classList.toggle('active', i === idx);
+  });
+  // 썸네일 업데이트
+  document.querySelectorAll('.sp-thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+}
+
+/* ═══ 상단 필터바 드롭다운 ═══ */
+function toggleFtbDD(id) {
+  const dd = document.getElementById(id);
+  if (!dd) return;
+  const isOpen = dd.classList.contains('open');
+  // 모두 닫기
+  document.querySelectorAll('.ftb-dropdown').forEach(d => d.classList.remove('open'));
+  if (!isOpen) dd.classList.add('open');
+}
+
+// 외부 클릭 시 드롭다운 닫기
+document.addEventListener('click', e => {
+  if (!e.target.closest('.ftb-chip-wrap')) {
+    document.querySelectorAll('.ftb-dropdown').forEach(d => d.classList.remove('open'));
+  }
+});
+
+let ftbGradeFilter = 'all';
+let ftbSpeciesFilter = 'all';
+let ftbSensorFilter = 'all';
+
+function setGradeFilter(val, ddId, btnId, label) {
+  ftbGradeFilter = val;
+  document.getElementById(ddId).classList.remove('open');
+  const btn = document.getElementById(btnId);
+  if (btn) {
+    btn.textContent = label + ' ▾';
+    btn.classList.toggle('active', val !== 'all');
+  }
+  applyFtbFilters();
+}
+
+function setSpeciesFilter(val, ddId, btnId, label) {
+  ftbSpeciesFilter = val;
+  document.getElementById(ddId).classList.remove('open');
+  const btn = document.getElementById(btnId);
+  if (btn) {
+    btn.textContent = (val === 'all' ? '수종' : label) + ' ▾';
+    btn.classList.toggle('active', val !== 'all');
+  }
+  applyFtbFilters();
+}
+
+function setSensorFilter(val, ddId, btnId, label) {
+  ftbSensorFilter = val;
+  document.getElementById(ddId).classList.remove('open');
+  const btn = document.getElementById(btnId);
+  if (btn) {
+    btn.textContent = (val === 'all' ? '센서 상태' : label) + ' ▾';
+    btn.classList.toggle('active', val !== 'all');
+  }
+  applyFtbFilters();
+}
+
+function applyFtbFilters() {
+  const markers = document.querySelectorAll('.tree-marker');
+  markers.forEach(m => {
+    const t = TREES.find(t => t.id === m.dataset.id);
+    if (!t) return;
+    const gradeOk = ftbGradeFilter === 'all' || t.g === ftbGradeFilter;
+    const speciesOk = ftbSpeciesFilter === 'all' || t.sp === ftbSpeciesFilter;
+    const sensorOk = ftbSensorFilter === 'all'
+      || (ftbSensorFilter === 'alert' && t.sens.includes('⚠'))
+      || (ftbSensorFilter === 'normal' && !t.sens.includes('⚠'));
+    m.style.display = (gradeOk && speciesOk && sensorOk) ? '' : 'none';
+  });
+  // 카드 그리드도 동기화
+  const filtered = TREES.filter(t => {
+    const gradeOk = ftbGradeFilter === 'all' || t.g === ftbGradeFilter;
+    const speciesOk = ftbSpeciesFilter === 'all' || t.sp === ftbSpeciesFilter;
+    const sensorOk = ftbSensorFilter === 'all'
+      || (ftbSensorFilter === 'alert' && t.sens.includes('⚠'))
+      || (ftbSensorFilter === 'normal' && !t.sens.includes('⚠'));
+    return gradeOk && speciesOk && sensorOk;
+  });
+  renderTreeCards(filtered);
+}
+
+function resetFtbFilters() {
+  ftbGradeFilter = 'all';
+  ftbSpeciesFilter = 'all';
+  ftbSensorFilter = 'all';
+  ['ftbGrade','ftbSpecies','ftbSensor'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn) btn.classList.remove('active');
+  });
+  const ftbGrade = document.getElementById('ftbGrade');
+  if (ftbGrade) ftbGrade.textContent = '건강 등급 ▾';
+  const ftbSpecies = document.getElementById('ftbSpecies');
+  if (ftbSpecies) ftbSpecies.textContent = '수종 ▾';
+  const ftbSensor = document.getElementById('ftbSensor');
+  if (ftbSensor) ftbSensor.textContent = '센서 상태 ▾';
+  applyFtbFilters();
 }
 </script>
 </body>
